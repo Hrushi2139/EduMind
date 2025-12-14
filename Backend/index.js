@@ -1,11 +1,19 @@
 import express from "express";
 import {connect} from "mongoose";
 import dotenv from "dotenv";
+import cors from "cors";
 import authRoutes from './routes/authRoutes.js';
 dotenv.config()
 const app=express();
 const PORT =process.env.PORT || 6969;
 app.use(express.json());
+
+
+app.use(cors({
+  origin: "http://localhost:5173",
+  credentials: true
+}));
+
 
 //Mongo DB Connection 
 

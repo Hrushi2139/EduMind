@@ -1,0 +1,136 @@
+/* Background */
+.login-container {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(270deg, #667eea, #764ba2, #ff758c);
+  background-size: 600% 600%;
+  animation: gradientMove 10s ease infinite;
+  font-family: "Poppins", sans-serif;
+}
+
+/* Card */
+.login-card {
+  width: 360px;
+  padding: 30px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.35);
+  text-align: center;
+  animation: cardPop 0.9s ease;
+}
+
+/* Titles */
+.login-title {
+  color: #fff;
+  font-size: 26px;
+  margin-bottom: 5px;
+}
+
+.login-subtitle {
+  color: #ddd;
+  margin-bottom: 25px;
+}
+
+/* Inputs */
+.input-group {
+  position: relative;
+  margin-bottom: 22px;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  background: transparent;
+  border: 1px solid #fff;
+  color: #fff;
+  outline: none;
+  font-size: 15px;
+}
+
+.input-group label {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #eee;
+  font-size: 14px;
+  pointer-events: none;
+  transition: 0.3s;
+  background: #764ba2;
+  padding: 0 6px;
+  border-radius: 4px;
+}
+
+/* Floating effect */
+.input-group input:focus + label,
+.input-group input:valid + label {
+  top: -8px;
+}
+
+/* Button */
+.login-btn {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #ff758c, #ff7eb3);
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.login-btn:hover {
+  transform: translateY(-3px);
+}
+
+/* Signup */
+.signup-text {
+  margin-top: 20px;
+  color: #eee;
+  font-size: 14px;
+}
+
+.signup-text span {
+  color: #ffdf6c;
+  font-weight: 600;
+  cursor: pointer;
+  animation: glow 1.5s infinite alternate;
+}
+
+/* Animations */
+@keyframes gradientMove {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes cardPop {
+  from {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes glow {
+  from {
+    text-shadow: 0 0 5px #ffdf6c;
+  }
+  to {
+    text-shadow: 0 0 15px #ffdf6c;
+  }
+}

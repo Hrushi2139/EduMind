@@ -1,7 +1,9 @@
 import React from 'react'
 
-export const teacherDashboard = () => {
+const TeacherDashboard = () => {
   return (
     <h1>Teacher Dashboard</h1>
   )
 }
+
+export default TeacherDashboard;
