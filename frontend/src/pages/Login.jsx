@@ -1,5 +1,6 @@
 import React , {useState} from "react";
 import { useNavigate } from "react-router-dom";
+import { saveAuth } from "../utils/authStorage";
 import "./Login.css";
 import api from "../api/axios";
 
@@ -14,7 +15,18 @@ const Login = () => {
         email,
         password
       });
-      console.log(res.data);
+      const { token, user } = res.data;
+
+      saveAuth(token, user);
+
+      if (user.role === "student") {
+        navigate("/student");
+      } else if (user.role === "teacher") {
+        navigate("/teacher");
+      } else if (user.role === "admin") {
+        navigate("/admin");
+      }
+      
     }catch (error) {
         console.log("FULL ERROR:", error);
         console.log("RESPONSE:", error.response);
