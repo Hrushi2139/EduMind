@@ -1,6 +1,6 @@
-import React , {useState} from "react";
+import React , {useState,useEffect} from "react";
 import { useNavigate } from "react-router-dom";
-import { saveAuth } from "../utils/authStorage";
+import { saveAuth,getToken,getUser } from "../utils/authStorage";
 import "./Login.css";
 import api from "../api/axios";
 
@@ -8,6 +8,19 @@ const Login = () => {
   const [email,setEmail] = useState("");
   const [password,setPassword] = useState("");
   const navigate = useNavigate();
+  useEffect(()=>{
+      const token=getToken();
+      const user=getUser();
+      if(token && user){
+        if (user.role === "student") {
+          navigate("/student");
+        } else if (user.role === "teacher") {
+          navigate("/teacher");
+        } else if (user.role === "admin") {
+          navigate("/admin");
+        }
+      }
+  },[]);
 
   const handleLogin =async()=>{
     try{
@@ -15,10 +28,10 @@ const Login = () => {
         email,
         password
       });
-      const { token, user } = res.data;
+      const { token, user } = res.data; 
 
       saveAuth(token, user);
-
+      console.log(user);
       if (user.role === "student") {
         navigate("/student");
       } else if (user.role === "teacher") {

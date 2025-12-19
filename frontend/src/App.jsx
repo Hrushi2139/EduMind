@@ -6,7 +6,9 @@ import AdminDashboard from './pages/AdminDashboard.jsx'
 import StudentDashboard from './pages/StudentDashboard.jsx'
 import TeacherDashboard from './pages/TeacherDashboard.jsx'
 import Home from './pages/Home';
-import ProtectedRoute from './routes/ProtectedRoute.jsx';
+import Unauthorized from "./pages/Unauthorized.jsx";
+
+import RoleProtectedRoute from './routes/RoleProtectedRoute.jsx'
 // import './App.css
 
 function App() {
@@ -19,24 +21,34 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
-          <Route path="/admin" element={
-            <ProtectedRoute>
-              <AdminDashboard />
-            </ProtectedRoute>
+          <Route path="/unauthorized" element={<Unauthorized />} />
+
+          <Route
+            path="/admin"
+            element={
+              <RoleProtectedRoute allowedRoles={["admin"]}>
+                <AdminDashboard />
+              </RoleProtectedRoute>
             }
           />
-          <Route path="/student" element={
-            <ProtectedRoute>
-              <StudentDashboard />
-            </ProtectedRoute>
+          <Route
+              path="/student"
+              element={
+                <RoleProtectedRoute allowedRoles={["student"]}>
+                  <StudentDashboard />
+                </RoleProtectedRoute>
+              }
+            />
+
+          <Route
+            path="/teacher"
+            element={
+              <RoleProtectedRoute allowedRoles={["teacher"]}>
+                <TeacherDashboard />
+              </RoleProtectedRoute>
             }
           />
-          <Route path="/teacher" element={
-            <ProtectedRoute>
-              <TeacherDashboard />
-            </ProtectedRoute>
-            }
-          />
+
         </Routes>
       </BrowserRouter>
     </>
