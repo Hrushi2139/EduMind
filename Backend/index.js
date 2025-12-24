@@ -3,6 +3,7 @@ import {connect} from "mongoose";
 import dotenv from "dotenv";
 import cors from "cors";
 import authRoutes from './routes/authRoutes.js';
+import courseRoutes from "./routes/courseRoutes.js";
 dotenv.config()
 const app=express();
 const PORT =process.env.PORT || 6969;
@@ -29,6 +30,7 @@ const connectDB=async ()=>{
 };
 
 app.use('/api/auth',authRoutes);
+app.use("/api/courses", courseRoutes);
 app.listen(PORT,async ()=>{
     try{
         await connectDB();

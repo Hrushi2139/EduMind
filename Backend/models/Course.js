@@ -59,7 +59,7 @@ const courseSchema = new mongoose.Schema(
       default: "English"
     },
     createdBy: {
-      type: mongoose.Schema.Types.ObjectId,
+      type: String,
       ref: "User",
       required: true
     },
