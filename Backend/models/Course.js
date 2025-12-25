@@ -78,7 +78,7 @@ const courseSchema = new mongoose.Schema(
     modules: [moduleSchema],
     enrolledStudents: [
       {
-        type: mongoose.Schema.Types.ObjectId,
+        type: String,
         ref: "User"
       }
     ],

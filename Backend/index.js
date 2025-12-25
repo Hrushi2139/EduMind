@@ -6,6 +6,7 @@ import authRoutes from './routes/authRoutes.js';
 import courseRoutes from "./routes/courseRoutes.js";
 import adminCourseRoutes from "./routes/adminCourseRoutes.js"
 import publicCourseRoutes from "./routes/publicCourseRoutes.js"
+import studentCourseRoutes from "./routes/studentCourseRoutes.js";
 dotenv.config()
 const app=express();
 const PORT =process.env.PORT || 6969;
@@ -35,6 +36,7 @@ app.use('/api/auth',authRoutes);
 app.use("/api/courses", courseRoutes);
 app.use('/api/admin/courses',adminCourseRoutes);
 app.use('/api/public/courses',publicCourseRoutes);
+app.use("/api/student/courses",studentCourseRoutes);
 app.listen(PORT,async ()=>{
     try{
         await connectDB();
