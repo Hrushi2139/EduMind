@@ -129,3 +129,36 @@ export async function removeCourse(req, res) {
     return res.status(500).json({ message: "Server error" });
   }
 }
+
+export async function submitCourseForReview(req, res) {
+  try {
+    const { id } = req.params;
+
+    const course = await Course.findById(id);
+    if (!course) {
+      return res.status(404).json({ message: "Course not found" });
+    }
+
+    if (course.createdBy.toString()!== req.user.userId) {
+      return res.status(403).json({ message: "Not authorized" });
+    }
+
+    if (course.status !== "draft") {
+      return res.status(400).json({ message: "Only draft courses can be submitted" });
+    }
+
+    course.status = "pending";
+    await course.save();
+
+    return res.status(200).json({
+      success: true,
+      message: "Course submitted for review",
+      course
+    });
+
+  } catch (error) {
+    console.error("Submit course error:", error);
+    return res.status(500).json({ message: "Server error" });
+  }
+}
+
