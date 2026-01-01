@@ -38,7 +38,7 @@ app.use('/api/auth',authRoutes);
 app.use("/api/courses", courseRoutes);
 app.use('/api/admin/courses',adminCourseRoutes);
 app.use('/api/public/courses',publicCourseRoutes);
-app.use("/api/student/courses",studentCourseRoutes);
+app.use("/api/student/",studentCourseRoutes);
 app.use("/api/progress", progressRoutes);
 
 app.listen(PORT,async ()=>{
