@@ -40,6 +40,10 @@ export async function markLessonCompleted(req, res) {
     const studentId = req.user.userId;
 
     const progress = await Progress.findOne({ student: studentId, course: courseId });
+    if (!course) {
+      return res.status(404).json({ message: "Course not found" });
+    }
+
     if (!progress) {
       return res.status(404).json({ message: "Progress not found. Start the course first." });
     }

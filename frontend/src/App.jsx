@@ -7,6 +7,7 @@ import StudentDashboard from './pages/StudentDashboard.jsx'
 import TeacherDashboard from './pages/TeacherDashboard.jsx'
 import Home from './pages/Home';
 import Unauthorized from "./pages/Unauthorized.jsx";
+import CourseLearn from './pages/CourseLearn.jsx';
 
 import RoleProtectedRoute from './routes/RoleProtectedRoute.jsx'
 // import './App.css
@@ -48,6 +49,15 @@ function App() {
               </RoleProtectedRoute>
             }
           />
+          <Route
+            path="/student/course/:id"
+            element={
+              <RoleProtectedRoute allowedRoles={["student"]}>
+                <CourseLearn />
+              </RoleProtectedRoute>
+            }
+          />
+
 
         </Routes>
       </BrowserRouter>
