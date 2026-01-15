@@ -44,6 +44,11 @@ export async function createCourse(req, res) {
     });
   }
 }
+export async function getCourseById(req, res) {
+  const course = await Course.findById(req.params.id);
+  res.json({ course });
+}
+
 
 export async function getMyCourses(req,res) {
     try{
@@ -63,7 +68,7 @@ export async function getMyCourses(req,res) {
 export async function updateCourse(req, res) {
   try {
     const { id } = req.params;
-    const { title, description, category, level, language, learningObjectives } = req.body;
+    const { title, description, category, level, language, learningObjectives,modules } = req.body;
 
     const course = await Course.findById(id);
     if (!course) {
@@ -84,8 +89,10 @@ export async function updateCourse(req, res) {
     if (level) course.level = level;
     if (language) course.language = language;
     if (learningObjectives) course.learningObjectives = learningObjectives;
+    if (modules !== undefined) course.modules = modules;
 
-    await course.save();
+    await course.save({ validateBeforeSave: false });
+
 
     return res.status(200).json({
       success: true,
@@ -139,7 +146,7 @@ export async function submitCourseForReview(req, res) {
       return res.status(404).json({ message: "Course not found" });
     }
 
-    if (course.createdBy.toString()!== req.user.userId) {
+    if (course.createdBy.toString() !== req.user.userId) {
       return res.status(403).json({ message: "Not authorized" });
     }
 
@@ -147,6 +154,39 @@ export async function submitCourseForReview(req, res) {
       return res.status(400).json({ message: "Only draft courses can be submitted" });
     }
 
+  
+
+    if (!course.modules || course.modules.length === 0) {
+      return res.status(400).json({ message: "Add at least one module" });
+    }
+
+    for (const module of course.modules) {
+      if (!module.title || !module.title.trim()) {
+        return res.status(400).json({ message: "Module title missing" });
+      }
+
+      if (!module.lessons || module.lessons.length === 0) {
+        return res.status(400).json({
+          message: `Module "${module.title}" must have at least one lesson`
+        });
+      }
+
+      for (const lesson of module.lessons) {
+        if (!lesson.title || !lesson.title.trim()) {
+          return res.status(400).json({
+            message: `Lesson title missing in module "${module.title}"`
+          });
+        }
+
+        if (!lesson.content || !lesson.content.trim()) {
+          return res.status(400).json({
+            message: `Lesson content missing in "${lesson.title}"`
+          });
+        }
+      }
+    }
+
+  
     course.status = "pending";
     await course.save();
 
@@ -161,4 +201,5 @@ export async function submitCourseForReview(req, res) {
     return res.status(500).json({ message: "Server error" });
   }
 }
+
 

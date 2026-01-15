@@ -4,16 +4,16 @@ import mongoose from "mongoose";
 const lessonSchema = new mongoose.Schema({
   title: {
     type: String,
-    required: true
+    default:""
   },
   contentType: {
     type: String,
     enum: ["video", "text", "pdf"],
-    required: true
+    default:"text"
   },
   content: {
     type: String,
-    required: true
+    default:""
   },
   duration: {
     type: Number
@@ -24,7 +24,7 @@ const lessonSchema = new mongoose.Schema({
 const moduleSchema = new mongoose.Schema({
   title: {
     type: String,
-    required: true
+    default:""
   },
   order: {
     type: Number,
