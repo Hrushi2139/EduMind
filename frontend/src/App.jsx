@@ -8,6 +8,7 @@ import TeacherDashboard from './pages/TeacherDashboard.jsx'
 import Home from './pages/Home';
 import Unauthorized from "./pages/Unauthorized.jsx";
 import CourseLearn from './pages/CourseLearn.jsx';
+import { TeacherCourseBuilder } from './pages/Teacher/TeacherCourseBuilder.jsx';
 
 import RoleProtectedRoute from './routes/RoleProtectedRoute.jsx'
 // import './App.css
@@ -57,6 +58,14 @@ function App() {
               </RoleProtectedRoute>
             }
           />
+        <Route
+          path="/teacher/course/:id/build"
+          element={
+            <RoleProtectedRoute allowedRoles={["teacher"]}>
+              <TeacherCourseBuilder />
+            </RoleProtectedRoute>
+          }
+        />
 
 
         </Routes>
